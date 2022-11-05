@@ -106,23 +106,17 @@ const addUser = async(req = request, res = response) => {
         conn = await pool.getConnection()
         const [affectedRows]= await conn.query(`
         INSERT INTO USUARIOS _(
-            nombre,
+            nombre, 
             apellidos,
-            edad,
-            genero,
-            usuario
-            contraseña,
+            edad,    
+            genero,   
+            usuario,
+            contraseñaCifrada,
             fecha_Nacimiento,
             Activo
+
         ) VALUES (
-            '${nombre}',
-            '${apellidos}',
-             ${edad},
-            '${genero}',
-            '${usuario}',
-            '${contraseña}',
-            '${fecha_Nacimiento}',
-            '${Activo}',
+            
         )
         `, (error) => { throw new Error(error) })
 
@@ -140,5 +134,113 @@ const addUser = async(req = request, res = response) => {
         conn.end() 
     }
 }
+
+const signIn= async(req = request, res = response) => {
+    const {
+        nombre,
+        apellidos,
+        edad,
+        genero,
+        usuario,
+        contraseña,
+        fecha_Nacimiento= 1998-04-23
+        Activo
+    }= req.body
+
+    if (
+        !Nombre ||
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ const signIn = async ( req = request, res = response) => {
+    const {
+        usuario,
+        contraseña,
+    } = req.body
+
+    if(
+    !usuario||
+    !contraseña 
+  ) {
+    res.status(400).json({msg:"falta informacion del usuario"})
+    return
+  }
+
+  let conn;
+
+  try {
+    conn = await pool.getConnection()
+
+    const [user] = await conn.query("SELECT Usuario,contraseña, Activo From Usuario WHERE Usuario = ´${Usuario} ")
+
+
+    if(!user || user.Activo == "N"){
+        let code = !user ? 1: 2;
+        res.status(403).json({msg: 'Él usuario o la contraseña son incorrectas.', errorCode: code})
+        
+    }
+  }
+
+
+
+
+ }
+
+
 
 module.exports = {getUsers, getUserByID, deleteUserByID, addUser}
